@@ -17,9 +17,10 @@ public class ElectricityReadingsGenerator {
         Instant now = Instant.now();
 
         Random readingRandomiser = new Random();
+        double randomReadingValue = Math.abs(readingRandomiser.nextGaussian());
         for (int i = 0; i < number; i++) {
-            double positiveRandomValue = Math.abs(readingRandomiser.nextGaussian());
-            BigDecimal randomReading = BigDecimal.valueOf(positiveRandomValue).setScale(4, RoundingMode.CEILING);
+            randomReadingValue -= Math.abs(readingRandomiser.nextGaussian());
+            BigDecimal randomReading = BigDecimal.valueOf(randomReadingValue).setScale(4, RoundingMode.CEILING);
             ElectricityReading electricityReading = new ElectricityReading(now.minusSeconds(i * 10), randomReading);
             readings.add(electricityReading);
         }
